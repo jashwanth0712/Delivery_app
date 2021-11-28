@@ -202,17 +202,26 @@ class _checkoutState extends State<checkout> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                child: Text(
-                  'Order Summary ',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, top: 16),
+                  child: Text(
+                    'Order Summary',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+
+                    ),
                   ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0, top: 16),
+                  child: Text('View Order',
+                      style: TextStyle(fontSize: 18, color: kPrimaryColor)),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 32),
