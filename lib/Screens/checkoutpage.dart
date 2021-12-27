@@ -377,11 +377,13 @@ class _checkoutState extends State<checkout> {
               }else{
                 AwesomeDialog(
                     context: context,
-                    showCloseIcon: false,
+                    showCloseIcon: true,
                     dismissOnBackKeyPress: false,
                     dismissOnTouchOutside: false,
                     dialogType: DialogType.INFO_REVERSED,
                     title: 'Pay using',
+                    btnOkColor: kPrimaryColor,
+                    btnCancelColor: kPrimaryColor.withOpacity(0.5),
                     btnOkText: 'Cash on Delivery',
                     btnCancelText: 'Pay now',
                     btnOkOnPress: (){handlerPaymentSuccess();},
