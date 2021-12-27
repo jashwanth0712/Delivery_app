@@ -334,7 +334,7 @@ class _TrackingPageState extends State<TrackingPage> {
                 }
               : null,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 105, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 105, vertical: 14),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: (outForDelivery) ? kPrimaryColor : ksecondaryColor,

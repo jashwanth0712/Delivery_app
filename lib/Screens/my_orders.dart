@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:delivery_app/restaurantModel.dart';
 import 'package:delivery_app/constants.dart';
 class order_history extends StatefulWidget {
   const order_history({Key? key}) : super(key: key);
@@ -15,6 +16,18 @@ class order_history extends StatefulWidget {
 }
 
 class _order_historyState extends State<order_history> {
+  var l;
+  generateYourOrder(var orderItems) {
+    String yourOrder = '';
+    orderItems.forEach((map) {
+      var req = menu.firstWhere((element) => element['id'] == map['id']);
+      yourOrder +=
+          map['count'].toString() + ' ' + req['item']['itemName'] + ',  ';
+    });
+    yourOrder = yourOrder.substring(0, yourOrder.length - 1);
+    yourOrder += '.';
+    return yourOrder;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +95,53 @@ class _order_historyState extends State<order_history> {
                                   )
                               );
                             },
-                            child: ListTile(
-                              //onTap: orderTapped(myOrders[index]['orderId']?? myOrders[index]['_id'],myOrders[index]['branchId']),
-                              title: Text(myOrders[index]['orderId']?? myOrders[index]['_id']),
-                              //subtitle: myOrders[index]['createdAt'],
-                              subtitle: Text(myOrders[index]['createdAt']?? ''),
-                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text('ID: '+(myOrders[index]['orderId']?? myOrders[index]['_id'])),
+                                    SizedBox(height:3),
+                                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+
+                                        Text(myOrders[index]['createdAt']?? '     -'),
+                                        (myOrders[index]['delivered']==true)?Text('Delivered',style: TextStyle(fontWeight: FontWeight.bold,color:Colors.green),)
+                                            :(myOrders[index]['delivered']==false)?Text('Not Delivered',style: TextStyle(fontWeight: FontWeight.bold,color:Colors.red),):Text('-          '),
+
+                                      ],
+                                    ),
+                                    Row(mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text('Total Bill',style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),
+                                        SizedBox(width: 16,),
+                                        Text(myOrders[index]['amountPaid']??'-',style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),
+                                        SizedBox(width: 16,),
+
+
+                                      ],
+                                    ),
+                                    SizedBox(height:8),
+                                    (myOrders[index]['orderItems']!=null)
+                                        ?Text(generateYourOrder((myOrders[index]['orderItems'])),style: TextStyle(color:Colors.black),)
+                                            :Text(""),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(height: 1,color: Colors.grey,),
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            )
+
+                            // ListTile(
+                            //   //onTap: orderTapped(myOrders[index]['orderId']?? myOrders[index]['_id'],myOrders[index]['branchId']),
+                            //   title: Text(myOrders[index]['orderId']?? myOrders[index]['_id']),
+                            //   //subtitle: myOrders[index]['createdAt'],
+                            //   subtitle: Text(myOrders[index]['createdAt']?? ''),
+                            // ),
                           );
                         },
                       itemCount: myOrders.length,
